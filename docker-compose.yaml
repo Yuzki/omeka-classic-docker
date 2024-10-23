@@ -1,0 +1,24 @@
+version: '3.8'
+
+services:
+  web:
+    build: .
+    container_name: omeka_web
+    ports:
+      - "8080:80"
+    depends_on:
+      - mysql
+
+  mysql:
+    image: mysql
+    container_name: omeka_db
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: omeka
+      MYSQL_USER: omekauser
+      MYSQL_PASSWORD: omekapassword
+    volumes:
+      - db_data:/var/lib/mysql
+
+volumes:
+  db_data:
